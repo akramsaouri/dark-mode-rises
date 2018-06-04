@@ -11,7 +11,8 @@ Lightweight chrome extension for automatically enabling/disabling dark mode on t
 
 Done! 🎊
 
-### Improvements
-- custom sunset/sunrise location (works for morocco only for now)
-- progammatically set querySelector timeout
-- support both manual and automatic night mode enabling
+### Todo
+- custom location (works for morocco only for now)
+- schedule night mode toggle
+- fix bug occuring when user manually toggle night mode
+- favicon?

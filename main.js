@@ -29,6 +29,13 @@ const websites = [{
   }, {
     "query": ".theme",
   }]
+}, {
+  "name": "Reddit",
+  "hostname": "reddit.com",
+  "selectors": [{
+    "query": ".header-user-dropdown",
+    "action": "click"
+  }]
 }]
 
 function getSunriseSunset() {
@@ -112,10 +119,21 @@ function handleWikiwand(isDayTime, element) {
   }
 }
 
+function handleReddit(isDayTime) {
+  const element = Array.from(document.querySelectorAll('a'))
+    .filter(e => e.innerText.trim() === 'Night Mode')[0]
+  if (isDayTime) {
+    localStorage.setItem('lastTheme', 'day')
+  } else {
+    localStorage.setItem('lastTheme', 'night')
+  }
+  element.click()
+}
+
 (async () => {
   const { sunrise, sunset } = await getSunriseSunset()
   const now = { h: new Date().getHours(), m: new Date().getMinutes() }
-  // const now = { h: strToDate(sunrise).h + 1, m: 0 }
+  // const now = { h: strToDate(sunrise).h + 1, m: 0 } // to simulate daytime
   const isDayTime = isAfter(now, strToDate(sunrise)) && isAfter(strToDate(sunset, true), now)
   const lastTheme = localStorage.getItem('lastTheme')
   if ((isDayTime && lastTheme === 'day')

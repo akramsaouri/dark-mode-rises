@@ -8,7 +8,8 @@
       "matches": [
         "*://*.twitter.com/*", 
         "*://*.youtube.com/*", 
-        "*://*.wikiwand.com/*"
+        "*://*.wikiwand.com/*",
+        "*://*.reddit.com/*"
       ],
       "js": ["main.js"]
     }
