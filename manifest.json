@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-rises",
-  "description": "Chrome extension for automatically enabling/disabling dark mode on youtube, twitter and wikiwand.",
+  "description": "Lightweight chrome extension for automatically enabling/disabling dark mode on popular websites.",
   "version": "1.0",
   "manifest_version": 2,
   "content_scripts": [
@@ -9,9 +9,11 @@
         "*://*.twitter.com/*", 
         "*://*.youtube.com/*", 
         "*://*.wikiwand.com/*",
-        "*://*.reddit.com/*"
+        "*://*.reddit.com/*",
+        "http://localhost:3000/"
       ],
       "js": ["main.js"]
     }
-  ]
+  ],
+  "permissions": ["geolocation"]
 }

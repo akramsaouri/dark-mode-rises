@@ -38,24 +38,31 @@ const websites = [{
   }]
 }]
 
-function getSunriseSunset() {
-  const coordinates = {
-    lat: 33.589886,
-    lng: -7.603869
-  }
-  const url = `https://api.sunrise-sunset.org/json?lat=${coordinates.lat}&lng=${coordinates.lng}`
-  // mocking sunrise sunset api for now
-  return Promise.resolve({
-    "sunrise": "5:26:43 AM",
-    "sunset": "7:27:07 PM",
+function getLocation() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => resolve(coords),
+      (err => reject(err))
+    )
   })
+}
+
+async function getSunriseSunset() {
+  const { latitude, longitude } = await getLocation()
+  const url = `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}`
+  const res = await fetch(url)
+  if (res.status !== 200) {
+    throw new Error(res.text())
+  }
+  return res.json()
 }
 
 function isAfter(x, y) {
   return x.h > y.h || (x.h === y.h && x.m > y.m)
 }
 
-function strToDate(str, isPm) {
+function strToDate(str) {
+  const isPm = str.endsWith('PM')
   const arr = str.split(':')
   const h = parseInt(arr[0])
   const m = parseInt(arr[1])
@@ -120,28 +127,31 @@ function handleWikiwand(isDayTime, element) {
 }
 
 function handleReddit(isDayTime) {
-  const element = Array.from(document.querySelectorAll('a'))
+  const element = Array.from(document.querySelectorAll('button'))
     .filter(e => e.innerText.trim() === 'Night Mode')[0]
+  element.click()
   if (isDayTime) {
     localStorage.setItem('lastTheme', 'day')
   } else {
     localStorage.setItem('lastTheme', 'night')
   }
-  element.click()
 }
 
-(async () => {
-  const { sunrise, sunset } = await getSunriseSunset()
+async function start() {
+  const { results: { sunset, sunrise } } = await getSunriseSunset()
   const now = { h: new Date().getHours(), m: new Date().getMinutes() }
-  // const now = { h: strToDate(sunrise).h + 1, m: 0 } // to simulate daytime
-  const isDayTime = isAfter(now, strToDate(sunrise)) && isAfter(strToDate(sunset, true), now)
+  // const now = { h: strToDate("8:00:00 PM").h + 1, m: 0 } // for test
+  const isDayTime = isAfter(now, strToDate(sunrise))
+    && isAfter(strToDate(sunset), now)
   const lastTheme = localStorage.getItem('lastTheme')
   if ((isDayTime && lastTheme === 'day')
     || (!isDayTime && lastTheme === 'night')) return
-  // console.log('isDayTime:', isDayTime)
   const hostname = location.hostname.replace('www.', '')
   const website = websites.find(w => w.hostname === hostname)
   walkDom(website.selectors, element => {
     eval(`handle${website.name}(isDayTime, element)`)
   })
-})()
+}
+
+start()
+

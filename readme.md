@@ -1,6 +1,6 @@
 # dark-mode-rises
 
-Lightweight chrome extension for automatically enabling/disabling dark mode on twitter, youtube and wikiwand.
+Lightweight chrome extension for automatically enabling/disabling dark mode on popular websites.
 
 ### Installation
 
@@ -11,8 +11,10 @@ Lightweight chrome extension for automatically enabling/disabling dark mode on t
 
 Done! 🎊
 
+### Goodies
+- [x] Works with Reddit, Twitter, Youtube and Wikiwand.
+- [x] Uses user location to get sunset/sunrise time.
+
 ### Todo
-- custom location (works for morocco only for now)
-- schedule night mode toggle
 - fix bug occuring when user manually toggle night mode
-- favicon?
+- schedule night mode toggle
