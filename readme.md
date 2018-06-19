@@ -15,6 +15,6 @@ Done! 🎊
 - [x] Works with Reddit, Twitter, Youtube and Wikiwand.
 - [x] Uses user location to get sunset/sunrise time.
 
-### TODO
+## TODO
 - fix bug occuring when user manually toggle night mode
 - schedule night mode toggle
