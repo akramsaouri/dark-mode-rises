@@ -33,7 +33,7 @@ const websites = [{
   "name": "Reddit",
   "hostname": "reddit.com",
   "selectors": [{
-    "query": ".header-user-dropdown",
+    "query": ".header-user-dropdown button",
     "action": "click"
   }]
 }]
