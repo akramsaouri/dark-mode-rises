@@ -36,7 +36,36 @@ const websites = [{
     "query": ".header-user-dropdown button",
     "action": "click"
   }]
+}, {
+  "name": "Local",
+  "hostname": "localhost",
+  "selectors": [{
+    "query": ".nightmode-toggle"
+  }]
 }]
+
+main()
+
+async function main() {
+  const position = await getLocation()
+  const { results: { sunset, sunrise } } = await getSunriseSunset(position)
+  // sunset = '4:12:00 PM'
+  const hostname = location.hostname.replace('www.', '')
+  const website = websites.find(w => w.hostname === hostname)
+  toggle()
+  setInterval(toggle, 5 * 60 * 1000)
+  function toggle() {
+    const now = { h: new Date().getHours(), m: new Date().getMinutes() }
+    const isDayTime = isAfter(now, strToDate(sunrise))
+      && isAfter(strToDate(sunset), now)
+    const lastTheme = localStorage.getItem('lastTheme')
+    if ((isDayTime && lastTheme === 'day')
+      || (!isDayTime && lastTheme === 'night')) return
+    walkDom(website.selectors, element => {
+      eval(`handle${website.name}(isDayTime, element)`)
+    })
+  }
+}
 
 function getLocation() {
   return new Promise((resolve, reject) => {
@@ -47,8 +76,7 @@ function getLocation() {
   })
 }
 
-async function getSunriseSunset() {
-  const { latitude, longitude } = await getLocation()
+async function getSunriseSunset({ latitude, longitude }) {
   const url = `https://api.sunrise-sunset.org/json?lat=${latitude}&lng=${longitude}`
   const res = await fetch(url)
   if (res.status !== 200) {
@@ -74,7 +102,7 @@ function strToDate(str) {
 
 function walkDom(selectors, cb) {
   for (let index = 0; index < selectors.length; index++) {
-    const selector = selectors[index];
+    const selector = selectors[index]
     setTimeout(() => {
       const element = document.querySelector(selector.query)
       if (selector.action) {
@@ -83,7 +111,7 @@ function walkDom(selectors, cb) {
       if (index === selectors.length - 1) {
         cb(element)
       }
-    }, (index + 1) * 1000);
+    }, (index + 1) * 1000)
   }
 }
 
@@ -137,21 +165,11 @@ function handleReddit(isDayTime) {
   }
 }
 
-async function start() {
-  const { results: { sunset, sunrise } } = await getSunriseSunset()
-  const now = { h: new Date().getHours(), m: new Date().getMinutes() }
-  // const now = { h: strToDate("8:00:00 PM").h + 1, m: 0 } // for test
-  const isDayTime = isAfter(now, strToDate(sunrise))
-    && isAfter(strToDate(sunset), now)
-  const lastTheme = localStorage.getItem('lastTheme')
-  if ((isDayTime && lastTheme === 'day')
-    || (!isDayTime && lastTheme === 'night')) return
-  const hostname = location.hostname.replace('www.', '')
-  const website = websites.find(w => w.hostname === hostname)
-  walkDom(website.selectors, element => {
-    eval(`handle${website.name}(isDayTime, element)`)
-  })
+function handleLocal(isDayTime, element) {
+  element.click()
+  if (isDayTime) {
+    localStorage.setItem('lastTheme', 'day')
+  } else {
+    localStorage.setItem('lastTheme', 'night')
+  }
 }
-
-start()
-

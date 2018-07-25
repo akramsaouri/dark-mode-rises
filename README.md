@@ -16,6 +16,4 @@ Done! 🎊
 - Uses user location to get sunset/sunrise time.
 
 ## TODO
-- fix bug occuring when user manually toggle night mode
-- schedule night mode toggle
 - figure out a way to bypass the popup chrome confirmation for using location
