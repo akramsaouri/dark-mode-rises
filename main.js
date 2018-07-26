@@ -14,7 +14,7 @@ const websites = [{
     "query": "button.ytd-topbar-menu-button-renderer",
     "action": "click"
   }, {
-    "query": ".ytd-popup-container .ytd-multi-page-menu-renderer .ytd-multi-page-menu-renderer:nth-child(2) .yt-multi-page-menu-section-renderer .yt-multi-page-menu-section-renderer",
+    "query": "#items > ytd-toggle-theme-compact-link-renderer",
     "action": "click"
   },
   {
