@@ -36,15 +36,7 @@ const websites = [{
     "query": ".header-user-dropdown button",
     "action": "click"
   }]
-}, {
-  "name": "Local",
-  "hostname": "localhost",
-  "selectors": [{
-    "query": ".nightmode-toggle"
-  }]
 }]
-
-main()
 
 async function main() {
   const position = await getLocation()
@@ -173,3 +165,5 @@ function handleLocal(isDayTime, element) {
     localStorage.setItem('lastTheme', 'night')
   }
 }
+
+main()

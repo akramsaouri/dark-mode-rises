@@ -1,6 +1,8 @@
 # dark-mode-rises
 
-Lightweight chrome extension for automatically enabling/disabling dark mode on popular websites.
+**dark-mode-rises** is a chrome extension that automatically toggles dark mode for you using your location.
+
+Open the `manifest.json` file to see the supported websites (more to come soon).
 
 ## Installation
 
@@ -10,10 +12,3 @@ Lightweight chrome extension for automatically enabling/disabling dark mode on p
 - Click `Load unpacked extensions` and select the unpacked ZIP archive
 
 Done! 🎊
-
-## Goodies
-- Works with Reddit, Twitter, Youtube and Wikiwand.
-- Uses user location to get sunset/sunrise time.
-
-## TODO
-- figure out a way to bypass the popup chrome confirmation for using location

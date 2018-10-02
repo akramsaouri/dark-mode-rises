@@ -1,6 +1,6 @@
 {
   "name": "dark-mode-rises",
-  "description": "Lightweight chrome extension for automatically enabling/disabling dark mode on popular websites.",
+  "description": "Chrome extension for automatically toggling dark mode on various websites.",
   "version": "1.0",
   "manifest_version": 2,
   "content_scripts": [
@@ -9,8 +9,7 @@
         "*://*.twitter.com/*",
         "*://*.youtube.com/*",
         "*://*.wikiwand.com/*",
-        "*://*.reddit.com/*",
-        "http://localhost:1313/"
+        "*://*.reddit.com/*"
       ],
       "js": [
         "main.js"
