@@ -1,0 +1,39 @@
+<style>
+  body {
+    width: 300px;
+    height: 200;
+  }
+  .error {
+    color: red;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <h5>dark-mode-rises</h5>
+  <div class="container">
+    <div class="riseset">
+      <input type="radio" name="method" id="riseset" value="riseset"/>
+      <label>SUNRISE/SUNSET</label>
+      <span>Requires access to location permissions.</span>
+    </div>
+    <hr />
+    <div class="scheduled">
+      <div>
+        <input type="radio" name="method" id="scheduled" value="scheduled"/>
+        <label>SCHEDULED</label>
+      </div>
+      <div>
+        <label>light:</label><input placeholder="hh:mm" name="light" />
+        <br />
+        <label>dark:</label><input placeholder="hh:mm" name="dark" />
+      </div>
+    </div>
+    <hr />
+    <p class="riseset-details"></p>
+    <p class="error"></p>
+    <button class="update-btn">Update settings</button>
+  </div>
+</body>
+<script src="utils.js"></script>
+<script src="popup.js"></script>

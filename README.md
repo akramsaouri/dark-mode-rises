@@ -12,3 +12,12 @@ Open the `manifest.json` file to see the supported websites (more to come soon).
 - Click `Load unpacked extensions` and select the unpacked ZIP archive
 
 Done! 🎊
+
+# v2
+- make ext popup to detect or manually input geolocation
+- separate project bl files
+  - handlers
+  - websites tree
+  - utils
+  - main
+- dynamically change app icon
